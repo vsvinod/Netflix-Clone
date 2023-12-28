@@ -4,6 +4,7 @@ import { User } from '../types/user.type';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../core/components/header/header.component';
 import { BannerComponent } from '../../core/components/banner/banner.component';
+import { MovieService } from '../../shared/services/movie.service';
 
 @Component({
   selector: 'app-browse',
@@ -14,6 +15,7 @@ import { BannerComponent } from '../../core/components/banner/banner.component';
 })
 export default class BrowseComponent implements OnInit {
   private authService = inject(AuthService);
+  movieService = inject(MovieService);
   user!: User;
 
   ngOnInit(): void {
@@ -25,6 +27,9 @@ export default class BrowseComponent implements OnInit {
         profileImg: loggedInUser.picture,
       };
     }
+    this.movieService.getMovies().subscribe((data) => {
+      console.log(data);
+    });
   }
 
   signOut() {

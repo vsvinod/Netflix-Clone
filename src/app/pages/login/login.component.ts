@@ -38,9 +38,9 @@ export default class LoginComponent implements OnInit {
       const payLoad = this.decodeToken(response.credential);
       sessionStorage.setItem('loggedInUser', JSON.stringify(payLoad));
       this.router.navigate(['/browse']);
-      setTimeout(() => {
-        location.reload();
-      }, 100);
+      // setTimeout(() => {
+      //   location.reload();
+      // }, 100);
     }
   }
 }

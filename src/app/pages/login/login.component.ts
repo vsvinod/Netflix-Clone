@@ -16,17 +16,19 @@ export default class LoginComponent implements OnInit {
     //Reference for Google Authentication
     //https://developers.google.com/identity/gsi/web/guides/client-library
     //https://console.cloud.google.com/?pli=1 : client -Identity
-    google.accounts.id.initialize({
-      client_id:
-        '1093074276626-4hjqc44dgkrlk8g2ofvndpdl8i5pc8lf.apps.googleusercontent.com',
-      callback: (resp: any) => this.handleLogin(resp),
-    });
-    google.accounts.id.renderButton(document.getElementById('google-btn'), {
-      theme: 'filled_blue',
-      size: 'large',
-      shape: 'rectangle',
-      width: 350,
-    });
+    if (typeof google !== undefined) {
+      google.accounts.id.initialize({
+        client_id:
+          '1093074276626-4hjqc44dgkrlk8g2ofvndpdl8i5pc8lf.apps.googleusercontent.com',
+        callback: (resp: any) => this.handleLogin(resp),
+      });
+      google.accounts.id.renderButton(document.getElementById('google-btn'), {
+        theme: 'filled_blue',
+        size: 'large',
+        shape: 'rectangle',
+        width: 350,
+      });
+    }
   }
 
   private decodeToken(token: string) {
@@ -38,9 +40,9 @@ export default class LoginComponent implements OnInit {
       const payLoad = this.decodeToken(response.credential);
       sessionStorage.setItem('loggedInUser', JSON.stringify(payLoad));
       this.router.navigate(['/browse']);
-      // setTimeout(() => {
-      //   location.reload();
-      // }, 100);
+      setTimeout(() => {
+        location.reload();
+      }, 100);
     }
   }
 }

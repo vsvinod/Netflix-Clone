@@ -15,7 +15,7 @@ export default class BrowseComponent implements OnInit {
   user!: User;
 
   ngOnInit(): void {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== undefined) {
       const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser')!);
       this.user = {
         name: loggedInUser.name,

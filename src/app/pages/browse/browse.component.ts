@@ -7,7 +7,7 @@ import { BannerComponent } from '../../core/components/banner/banner.component';
 import { MovieService } from '../../shared/services/movie.service';
 import { MovieCarouselComponent } from '../../shared/components/movie-carousel/movie-carousel.component';
 import { IVideoContent } from '../../shared/models/video-content.interface';
-import { forkJoin, map } from 'rxjs';
+import { Observable, forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-browse',
@@ -32,6 +32,9 @@ export default class BrowseComponent implements OnInit {
   popularMovies: IVideoContent[] = [];
   topRatedMovies: IVideoContent[] = [];
   upcomingMovies: IVideoContent[] = [];
+
+  bannerDetail$ = new Observable<any>();
+  bannerVideo$ = new Observable<any>();
 
   sources = [
     this.movieService.getMovies(),
@@ -64,8 +67,12 @@ export default class BrowseComponent implements OnInit {
             popular,
             topRated,
           ]) => {
-            // this.bannerDetail$ = this.movieService.getBannerDetail(movies.results[1].id);
-            // this.bannerVideo$ = this.movieService.getBannerVideo(movies.results[1].id);
+            this.bannerDetail$ = this.movieService.getBannerDetail(
+              movies.results[1].id
+            );
+            this.bannerVideo$ = this.movieService.getBannerVideo(
+              movies.results[1].id
+            );
             return {
               movies,
               tvShows,
@@ -90,10 +97,9 @@ export default class BrowseComponent implements OnInit {
       });
   }
   getMovieKey() {
-    // this.movieService.getBannerVideo(this.movies[0].id)
-    // .subscribe(res=>{
-    //   console.log(res);
-    // })
+    this.movieService.getBannerVideo(this.movies[0].id).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   signOut() {

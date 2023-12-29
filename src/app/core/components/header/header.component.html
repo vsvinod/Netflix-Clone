@@ -23,13 +23,16 @@
       >
       <img
         width="42"
-        class="rounded-[50%]"
+        @fade
+        class="rounded-[50%] hover:transition-all duration-300 ease-[ease-in-out]"
         [src]="user.profileImg"
         alt="profile-img"
       />
     </div>
 
     &nbsp; | &nbsp;
-    <a href="/">Sign Out</a>
+    <a (click)="signOut()"
+      ><span class="hover:text-gray-400 transition-[1s]">Sign Out</span></a
+    >
   </div>
 </header>
